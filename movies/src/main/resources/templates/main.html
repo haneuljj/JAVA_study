@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HaneulMovieOn</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+    <div class="container">
+        <!--로고 설정-->
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/movielogo.png}" alt="logo">
+                <span>Movie On</span>
+            </a>
+        </div>
+        <!--메뉴 설정-->
+        <hr>
+        <div class="menu">
+            <div class="gnb">
+                <ul>
+                    <li><a href="#">영화</a></li>
+                    <li><a href="#">방송</a></li>
+                    <li><a href="#">랭킹</a></li>
+                    <li><a href="#">무료</a></li>
+                    <li><a href="#">이벤트</a></li>
+                    <li><a href="#">멤버쉽</a></li> 
+                </ul>
+            </div>
+            <div class="search">
+                <form action="" id="searchForm">
+                    <select name="genre" id="searchItem">
+                        <option name="genre">액션</option>
+                        <option name="genre">코미디</option>
+                        <option name="genre">드라마</option>
+                        <option name="genre">멜로</option>
+                    </select>
+                    <div class="searchword">
+                        <input type="text" id="searchWord" placeholder="작품, 배우, 감독명을 입력하세요">
+                        <button>
+                            <img th:src="@{/images/magnifier.png}" alt="search" width="20px">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <hr>
+        <!--영화 목록-->
+        <h1 id="hot">HOT & NEW</h1>
+        <div class="movie-list">
+            <ul>
+                <li>
+                    <a th:href="@{/movie/movieDetail(movieNum=1)}"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMjlfNDgg%2FMDAxNzA5MjEwMzMxMDk5.gwFEbhM4dY62sP3tmS-aw-6X9Mi55RTTgH-sA0i6IZMg.XTBbODxW3s_gEU_M3yzEWxSm7uWC_uVuZcX8E2jW8Tkg.JPEG%2FScreenshot%25A3%25DF20240229%25A3%25DF213649%25A3%25DFChrome.jpg&type=a340" alt="m1"></a>
+                    <br>
+                    <a th:href="@{/movie/movieDetail(movieNum=1)}">듄: 파트2</a>
+                    <p>2024-02-28</p>
+                </li>
+                <li>
+                    <a th:href="@{/movie/movieDetail(movieNum=2)}"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMjZfOTkg%2FMDAxNzA4OTIxNzYyMTc3.mzQm4LULi6eTccfo2iKUik-Raudg4CqdiTvLT-bybPgg.TgSUcduIJQpVtFCG862jgDHDg6F2D599VizdKBeYZ8gg.JPEG%2F20240226_131453.jpg&type=a340" alt="m2"></a>
+                    <br>
+                    <a th:href="@{/movie/movieDetail(movieNum=2)}">파묘</a>
+                    <p>2024-02-22</p>
+                </li>
+                <li>
+                    <a th:href="@{/movie/movieDetail(movieNum=3)}"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAzMDdfMjcy%2FMDAxNzA5NzQzODAxMzQw.tHgXoN_RHyKIz_vPUHRHvTVlbM-CiN3A31uKT6guNfsg.J2KTlsRYB0CA1paPxrCffHu2qEd4BNqJbBjkbvJNnxAg.PNG%2Fimage.png&type=a340" alt="m3"></a>
+                    <br>
+                    <a th:href="@{/movie/movieDetail(movieNum=3)}">웡카</a>
+                    <p>2024-01-31</p>
+                </li>
+                <li>
+                    <a th:href="@{/movie/movieDetail(movieNum=4)}"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAzMDVfODMg%2FMDAxNzA5NjM1NDg3OTAz.rj8RvsG1gsRVqgHVAUJyODo2EZrNbAPTZKjEO46WaQQg.VMSL1GMEjQP16Amg5WJGtyrsDhK5yYS33PouPkgyyhYg.JPEG%2F1709634605370.jpg&type=a340" alt="m4"></a>
+                    <br>
+                    <a th:href="@{/movie/movieDetail(movieNum=4)}">패스트 라이브즈</a>
+                    <p>2024-03-06</p>
+                </li>
+            </ul>
+        </div>
+    </div> <!--container-->
+</body>
+</html>

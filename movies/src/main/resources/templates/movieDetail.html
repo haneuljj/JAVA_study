@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HaneulMovieOn</title>
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+</head>
+<body>
+    <div class="container">
+        <!--로고 설정-->
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/movielogo.png}" alt="logo">
+                <span>Movie On</span>
+            </a>
+        </div>
+        <hr>
+        <div class="menu">
+            <div class="gnb">
+                <ul>
+                    <li><a href="#">영화</a></li>
+                    <li><a href="#">방송</a></li>
+                    <li><a href="#">랭킹</a></li>
+                    <li><a href="#">무료</a></li>
+                    <li><a href="#">이벤트</a></li>
+                    <li><a href="#">멤버쉽</a></li> 
+                </ul>
+            </div>
+            <div class="search">
+                <form action="" id="searchForm">
+                    <select name="genre" id="searchItem">
+                        <option name="genre">액션</option>
+                        <option name="genre">코미디</option>
+                        <option name="genre">드라마</option>
+                        <option name="genre">멜로</option>
+                    </select>
+                    <div class="searchword">
+                        <input type="text" id="searchWord" placeholder="작품, 배우, 감독명을 입력하세요">
+                        <button>
+                            <img th:src="@{/images/magnifier.png}" alt="search" width="20px">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="movieDetail">
+            <div class="movieimg">
+                <img th:src="${movie.photoUrl}" alt="movie-photo" height="700px">
+            </div>
+            <h1 th:text="${movie.movieTitle}"></h1>
+            <div class="movieInfo">
+                <p>감독 &nbsp; <span th:text="${movie.movieDirector}"></span></p>
+                <p>장르 &nbsp; <span th:text="${movie.movieGenre}"></span></p>
+                <p>개봉일 &nbsp; <span th:text="${movie.ReleaseDate}"></span></p>
+            </div>
+        </div>
+    </div> <!--container-->
+</body>
+</html>
