@@ -5,6 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HaneulMovieOn</title>
     <link rel="stylesheet" th:href="@{/css/detail.css}">
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script>
+        $(function(){
+            $("#reviewSubmit").on('click', insertReview);
+            init();
+        });
+
+        function init() {
+            let movieNum = $("#movieNum").val();
+
+            $.ajax({
+                url : "/review/reviewAll"
+                , method : "GET"
+                , data : {"movieNum":movieNum}
+                , success : selectAll
+            });
+        };
+        function selectAll(resp){
+            let insertData = '';
+            $.each(resp, function(index, item){
+                let userId = item["userId"];
+                    let reviewContent = item["reviewContent"];
+                    let createDate = item["createDate"];
+                    let date = createDate.split('T');
+
+                    insertData += `
+                    <div class="reviewArea">
+                        <div class="reviewerIdArea">
+                            <span>${userId}</span>
+                        </div>
+                        <div class="reviewTextArea">
+                            <span>${reviewContent}</span>
+                        </div>
+                        <div class="createDateArea">
+                            <span>${date[0]}</span>
+                        </div>
+                    </div>
+                    `;
+
+                    $(".reviewAll").html(insertData);
+            })
+        }        
+
+
+        function insertReview() {
+            let userid = $("#reviewerId").val();
+            let reviewContent = $("#reviewContent").val();
+            let movieNum = $("#movieNum").val();
+
+            if(userid.trim().length == 0) {
+                alert("ID를 입력하세요!")
+                $("#reviewerId").focus();
+                return;
+            }
+
+            if(reviewContent.trim().length == 0) {
+                alert("내용을 입력하세요!")
+                $("#reviewContent").focus();
+                return;
+            }
+
+            let sendData = {
+                "movieNum":movieNum
+                , "userId":userid
+                , "reviewContent":reviewContent
+            };
+
+            $.ajax({
+                url : "/review/insertReview"
+                , method : "post"
+                , data : sendData
+                , success : function(resp) {
+                    let userId = resp["userId"];
+                    let reviewContent = resp["reviewContent"];
+                    let createDate = resp["createDate"];
+                    let date = createDate.split('T');
+
+                    let insertData = `
+                    <div class="reviewArea">
+                        <div class="reviewerIdArea">
+                            <span>${userId}</span>
+                        </div>
+                        <div class="reviewTextArea">
+                            <span>${reviewContent}</span>
+                        </div>
+                        <div class="createDateArea">
+                            <span>${date[0]}</span>
+                        </div>
+                    </div>
+                    `;
+
+                    $(".reviewAll").prepend(insertData);
+
+                    $("#reviewContent").val('');
+
+                }
+            });
+        };
+
+    </script>
 </head>
 <body>
     <div class="container">
@@ -14,7 +114,7 @@
                 <img th:src="@{/images/movielogo.png}" alt="logo">
                 <span>Movie On</span>
             </a>
-        </div>
+        </div> <!--logo-->
         <hr>
         <div class="menu">
             <div class="gnb">
@@ -43,7 +143,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> <!--menu-->
         <hr>
         <div class="movieDetail">
             <div class="movieimg">
@@ -54,8 +154,33 @@
                 <p>감독 &nbsp; <span th:text="${movie.movieDirector}"></span></p>
                 <p>장르 &nbsp; <span th:text="${movie.movieGenre}"></span></p>
                 <p>개봉일 &nbsp; <span th:text="${movie.ReleaseDate}"></span></p>
+                <input type="hidden" id="movieNum" th:value="${movie.movieNum}">
             </div>
+        </div> <!--movieDetail-->
+        <br>
+        <br>
+        <!--댓글창 설정-->
+        <div class="reviewInsert">
+            <h2>감상평 <span>0</span></h2>
+            <form id="reviewForm">
+                <div class="reviewerId">
+                    <input type="text" id="reviewerId" placeholder="id를 입력하세요">
+                </div>
+                <div class="reviewText">
+                    <textarea name="reviewContent" id="reviewContent" cols="140" rows="7" placeholder="감상평을 등록해주세요"></textarea>
+                    <input type="button" id="reviewSubmit" class="btn btn-submit" value="등록">
+                </div>
+            </form>
         </div>
+        <br>
+        <br>
+
+        <div class="reviewAll">
+            <!--댓글 전체 조회-->
+            
+        </div>
+        
+        
     </div> <!--container-->
 </body>
 </html>

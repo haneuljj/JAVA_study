@@ -14,6 +14,8 @@ CREATE TABLE movie
 CREATE SEQUENCE movie_seq;
 
 ALTER TABLE movie ADD photo_url VARCHAR2(1000);
+
+
 -- 관람평 테이블
 
 DROP TABLE review;

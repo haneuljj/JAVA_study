@@ -15,7 +15,7 @@ import net.kdigital.movies.repository.MovieRepository;
 @RequiredArgsConstructor
 public class MovieService {
 
-    public final MovieRepository repository;
+    private final MovieRepository repository;
 
     public MovieDTO selectMovie(Long movieNum) {
         Optional<MovieEntity> movieEntity = repository.findById(movieNum);

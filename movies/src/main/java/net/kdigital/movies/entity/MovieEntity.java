@@ -1,11 +1,17 @@
 package net.kdigital.movies.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -51,6 +57,17 @@ public class MovieEntity {
 
     @Column(name = "photo_url")
     private String photoUrl;
+
+    /* ReviewEntity와 관계 설정 */
+    @OneToMany(
+		mappedBy = "movieEntity", 
+		cascade = CascadeType.REMOVE,
+		orphanRemoval = true,
+		fetch = FetchType.LAZY
+		)
+	// 딸려오는 댓글들의 정렬 설정
+	@OrderBy("review_num desc")
+	private List<ReviewEntity> reviewEntity = new ArrayList<>();
 
     public static MovieEntity toEntity(MovieDTO movieDTO){
         return MovieEntity.builder()

@@ -1,2 +1,86 @@
-@import "main.css"
+@import "main.css";
 
+.movieDetail {
+    margin-top: 20px;
+}
+
+/* 이미지 설정 */
+.movieDetail .movieimg {
+    text-align: center;
+    background-color: black;
+}
+
+/* 영화 설명란 설정 */
+.movieDetail h1{
+    font-size: 2.5em;
+}
+
+div.movieInfo {
+    font-size: 1.3em;
+}
+div.movieInfo p span {
+    color: gray;
+}
+
+/* 감상평 입력란 설정 */
+div.reviewerId {
+    width: 1030px;
+    height: 40px;
+    border: 1px solid grey;
+    margin-left: 0px;
+}
+input#reviewerId {
+    border: 0px;
+    outline: none;
+    width: 500px;
+    font-size: 1.3em;
+    margin-left: 13px;
+    margin-top: 8px;
+}
+
+.reviewText {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+textarea {
+    font-size: 1.3em;
+    width: 1000px;
+    height: 150px;
+    resize: none;
+    border-color: grey;
+    line-height: 30px;
+    padding: 15px 15px;
+}
+
+.btn-submit {
+    width: 130px;
+    height: 40px;
+    font-size: 1.1em;
+    border: 0px;
+    background-color: #2DB400;
+    color: white;
+}
+
+/* 감상평 출력란 설정 */
+div.reviewArea,
+div.reviewAll {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+div.reviewArea {
+    margin: 20px auto;
+}
+
+div.reviewerIdArea,
+div.createDateArea {
+    font-size: 1.1em;
+    height: 30px; 
+}
+
+div.reviewTextArea {
+    font-size: 1.2em;
+    height: 60px;
+}

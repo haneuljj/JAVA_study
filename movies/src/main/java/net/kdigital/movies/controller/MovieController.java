@@ -15,7 +15,7 @@ import net.kdigital.movies.service.MovieService;
 @Slf4j
 public class MovieController {
     
-    public final MovieService service;
+    private final MovieService service;
 
     @GetMapping("/movie/movieDetail")
     public String movieDetail(
