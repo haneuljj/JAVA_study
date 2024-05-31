@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cashbook</title>
+  </head>
+  <body>
+    <h1>[ 로그인 ]</h1>
+
+    <div class="content">
+      <form th:action="@{/member/loginProc}" method="post">
+        아이디
+        <input type="text" name="memberid" id="memberid" />
+        <br />
+
+        비밀번호
+        <input type="password" name="memberpw" id="memberpw" />
+        <br />
+
+        <div class="btns" style="display: inline-block">
+          <input type="submit" value="로그인" id="loginBtn"/>
+          <input type="reset" value="취소" />
+        </div>
+      </form>
+    </div>
+
+    <script th:src="@{/script/login_validation.js}"></script>
+
+  </body>
+</html>

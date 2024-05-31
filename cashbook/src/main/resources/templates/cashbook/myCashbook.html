@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cashbook</title>
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script>
+        $(function(){
+            $('#saveMemo').on('click', insertCashbook);
+            $('.deleteInfo').on('click', deleteCashbook);
+        });
+
+        function insertCashbook(){
+            let memberid = $('#memberid').val();
+            let type = $("input[name='type']:checked").val();
+            let memo = $('#memo').val();
+            let amount = $('#amount').val();
+
+            $.ajax({
+                url : "/cashbook/insertCashbook"
+                , method: "POST"
+                , data: {"memberid":memberid, "type":type, "memo":memo, "amount":amount}
+                , success : function(resp){
+                    console.log(resp)
+                    let infonum = resp["infonum"];
+                    let inputdate = resp["inputdate"];
+                    let type = resp["type"];
+                    let memo = resp["memo"];
+                    let amount = resp["amount"];
+
+                    let receivedData = 
+                        `
+                        <tr>
+                            <td>${inputdate}</td>
+                            <td>${type}</td>
+                            <td>${memo}</td>
+                            <td>${amount}</td>
+                            <td>
+                                <input type="button" value="삭제" class="deleteInfo" data-no="${infonum}">
+                            </td>
+                        </tr>
+                        `;
+                    
+                        $("#allInfo").append(receivedData);
+                        $('#memberid').val('');
+                        $("input[name='type']:checked").val('');
+                        $('#memo').val('');
+                        $('#amount').val('');
+
+                        $('.deleteInfo').on('click', deleteCashbook);
+                }
+            });
+        }
+
+        function deleteCashbook() {
+            let del = $(this);
+            let infonum = del.attr('data-no');
+            console.log(infonum);
+
+            if(!confirm("정말 삭제하시겠습니까?")) return;
+
+            $.ajax({
+                url : "/cashbook/deleteCashbook"
+                , method : "GET"
+                , data : {"infonum":Number(del.attr('data-no'))}
+                , success : function(resp){
+                    if(resp){
+                        del.parent().parent().remove();
+                    }
+                    else {
+                        alert("삭제실패");
+                    }
+                }
+            })
+        }
+        
+    </script>
+</head>
+<body>
+    <h1>내 가계부</h1>
+
+    <input type="hidden" id="memberid" th:value="${memberid}">
+    <div class="inputContent">
+        구분
+            <input type="radio" name="type" value="수입" >수입
+            <input type="radio" name="type" value="지출">지출
+        <br>
+        메모
+        <input type="text" name="memo" id="memo" placeholder="내용 입력">
+        <br>
+        금액
+        <input type="number" name="amount" id="amount" placeholder="금액 입력">
+        <br>
+        <input type="button" value="등록" id="saveMemo">
+    </div>
+
+<br>
+<br>
+
+    <div class="memos">
+        <table style="border: 1px black solid;">
+            <thead>
+                <tr>
+                    <th>날짜</th>
+                    <th>구분</th>
+                    <th>메모</th>
+                    <th>금액</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="allInfo">
+                <tr th:each="cash : ${allCashbook}">
+                    <td th:text="${cash.inputdate}"></td>
+                    <td th:text="${cash.type}"></td>
+                    <td th:text="${cash.memo}"></td>
+                    <td th:text="${cash.amount}"></td>
+                    <td>
+                        <input type="button" value="삭제" class="deleteInfo" th:data-no="${cash.infonum}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

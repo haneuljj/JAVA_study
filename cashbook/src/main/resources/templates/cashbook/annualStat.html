@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cashbook</title>
+</head>
+<body>
+    <h1>연도별 통계</h1>
+
+    <table style="border: 1px black solid;">
+        <thead>
+            <tr>
+                <th>연도</th>
+                <th>수입 총합계</th>
+                <th>지출 총합계</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="info : ${annaulList}">
+                <td th:text="${info.year}"></td>
+                <td>[[ ${info.income} ]]원</td>
+                <td>[[ ${info.expense} ]]원</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
